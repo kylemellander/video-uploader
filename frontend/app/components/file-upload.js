@@ -11,9 +11,30 @@ export default Ember.TextField.extend({
       return this.set('error', 'That file is not an mp4 file.');
     }
 
-    // Upload file if it gets past the initial checks.
+    const data = new FormData();
+    data.append(0, file);
 
-    return e;
+    Ember.$.ajax({
+      url: '/upload',
+      type: 'POST',
+      xhr: () => {
+          const xhr = Ember.$.ajaxSettings.xhr();
+          if (xhr.upload) {
+            xhr.upload.addEventListener('progress', this.trackProgress, false);
+          }
+          return xhr;
+      },
+      data,
+      cache: false,
+      contentType: false,
+      processData: false
+    }).then(() => {
+      // handle response;
+    });
+  },
+
+  trackProgress() {
+
   },
 
   checkExtension(file) {
