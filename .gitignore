@@ -14,7 +14,7 @@
 
 # compiled output
 /dist
-/tmp
+/server/tmp
 
 # dependencies
 /node_modules
