@@ -38,7 +38,7 @@ export default Ember.TextField.extend({
   },
 
   checkExtension(file) {
-    return file.type === "video/mp4";
+    return file && file.type === "video/mp4";
   },
 
   checkFileHeader(/*file*/) {
