@@ -5,25 +5,24 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
+*/.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
+/server/log/*
 !/log/.keep
-/tmp
+*/tmp
 
 # compiled output
 /dist
-/server/tmp
 
 # dependencies
-/node_modules
-/bower_components
+*/node_modules
+*/bower_components
 
 # misc
-/.sass-cache
-/connect.lock
-/coverage/*
-/libpeerconnection.log
-npm-debug.log
-testem.log
+*/.sass-cache
+*/connect.lock
+*/coverage/*
+*/libpeerconnection.log
+*/npm-debug.log
+*/testem.log
