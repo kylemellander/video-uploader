@@ -26,3 +26,5 @@
 */libpeerconnection.log
 */npm-debug.log
 */testem.log
+
+/server/public/videos
