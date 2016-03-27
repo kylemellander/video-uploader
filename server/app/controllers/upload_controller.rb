@@ -7,7 +7,7 @@ class UploadController < ApplicationController
       port = request.port == 80 ? "" : ":#{request.port}"
       url = "#{request.protocol}#{request.host}#{port}/videos/#{filename}"
 
-      File.open(video_dir + filename, 'wb') { |file|
+      File.open("#{Rails.root}/#{video_dir}#{filename}", 'wb') { |file|
         file.write(upload_params.read)
       }
 

@@ -25,6 +25,7 @@ export default Ember.TextField.extend({
               this.set('progress', percent);
             };
           }
+          // Add cancelling upload here
           return xhr;
       },
       data,

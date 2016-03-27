@@ -21,6 +21,14 @@ module VideoUploadServer
     # config.i18n.default_locale = :de
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        #TODO needs to be configured with real sources for live project
+        origins '*'
+        resource '*', :headers => :any, :methods => [:post, :options]
+      end
+    end
+
     config.active_record.raise_in_transactional_callbacks = true
 
     config.api_only = true
