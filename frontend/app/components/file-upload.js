@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.TextField.extend({
+  classNames: ["km-ember-file-upload"],
   type: 'file',
   accept: '.mp4',
   change(e) {

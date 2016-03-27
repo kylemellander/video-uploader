@@ -11,6 +11,7 @@
 /server/log/*
 !/log/.keep
 */tmp
+frontend/coverage.json
 
 # compiled output
 /dist
