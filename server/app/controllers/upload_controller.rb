@@ -5,8 +5,7 @@ class UploadController < ApplicationController
       filename = upload_params.original_filename
       filename = increment_filename(filename)
       port = request.port == 80 ? "" : ":#{request.port}"
-
-      url = "#{request.host}#{port}/videos/#{filename}"
+      url = "#{request.protocol}#{request.host}#{port}/videos/#{filename}"
 
       File.open(video_dir + filename, 'w:ASCII-8BIT') { |file|
         file.write(upload_params.read)

@@ -22,7 +22,7 @@ describe UploadController do
       post :create, request, {}
       attrs = JSON.parse(response.body)["data"]["attributes"]
 
-      expect(attrs["url"]).to eq "#{@request.host}/videos/samplevideo.mp4"
+      expect(attrs["url"]).to eq "#{@request.protocol}#{@request.host}/videos/samplevideo.mp4"
       expect(File.exist?(test_location))
 
       remove_file(test_location)
@@ -36,7 +36,7 @@ describe UploadController do
       post :create, request, {}
       attrs = JSON.parse(response.body)["data"]["attributes"]
 
-      expect(attrs["url"]).to eq "#{@request.host}/videos/samplevideo_1.mp4"
+      expect(attrs["url"]).to eq "#{@request.protocol}#{@request.host}/videos/samplevideo_1.mp4"
 
       remove_file(test_location)
       remove_file("public/test/samplevideo_1.mp4")

@@ -28,8 +28,10 @@ export default Ember.TextField.extend({
       cache: false,
       contentType: false,
       processData: false
-    }).then(() => {
-      // handle response;
+    }).then((resp) => {
+      if (resp.data && resp.data.attributes) {
+        this.set('videoUrl', resp.data.attributes.url);
+      }
     });
   },
 
