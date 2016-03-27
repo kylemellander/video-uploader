@@ -7,7 +7,7 @@ class UploadController < ApplicationController
       port = request.port == 80 ? "" : ":#{request.port}"
       url = "#{request.protocol}#{request.host}#{port}/videos/#{filename}"
 
-      File.open(video_dir + filename, 'w:ASCII-8BIT') { |file|
+      File.open(video_dir + filename, 'wb') { |file|
         file.write(upload_params.read)
       }
 
@@ -42,13 +42,13 @@ class UploadController < ApplicationController
   end
 
   def increment_filename(filename)
-    count = 0
-    unique_name = filename
-    while File.exist?(video_dir + unique_name) do
+    count = 1
+    ext = File.extname(filename)
+    unique_name = "#{count}#{ext}"
+
+    while File.exist?("#{video_dir}#{count}#{ext}") do
       count += 1
-      ext = File.extname(filename)
-      basename = File.basename(filename, ext)
-      unique_name = "#{basename}_#{count}#{ext}"
+      unique_name = "#{count}#{ext}"
     end
 
     unique_name

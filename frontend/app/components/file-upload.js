@@ -13,14 +13,17 @@ export default Ember.TextField.extend({
 
     const data = new FormData();
     data.append(0, file);
-
+    this.set('loading', true);
     Ember.$.ajax({
       url: '/upload',
       type: 'POST',
       xhr: () => {
           const xhr = Ember.$.ajaxSettings.xhr();
           if (xhr.upload) {
-            xhr.upload.addEventListener('progress', this.trackProgress, false);
+            xhr.upload.onprogress = (progress) => {
+              const percent = Math.round(progress.loaded / progress.total * 100);
+              this.set('progress', percent);
+            };
           }
           return xhr;
       },
@@ -29,14 +32,11 @@ export default Ember.TextField.extend({
       contentType: false,
       processData: false
     }).then((resp) => {
+      this.set('loading', false);
       if (resp.data && resp.data.attributes) {
         this.set('videoUrl', resp.data.attributes.url);
       }
     });
-  },
-
-  trackProgress() {
-
   },
 
   checkExtension(file) {

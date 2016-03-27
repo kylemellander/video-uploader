@@ -17,29 +17,29 @@ describe UploadController do
 
     it "saves a video successfully" do
       request = {"0" => fixture_file_upload('samplevideo.mp4', 'video/mp4')}
-      test_location = "public/test/samplevideo.mp4"
+      test_location = "public/test/1.mp4"
 
       post :create, request, {}
       attrs = JSON.parse(response.body)["data"]["attributes"]
 
-      expect(attrs["url"]).to eq "#{@request.protocol}#{@request.host}/videos/samplevideo.mp4"
+      expect(attrs["url"]).to eq "#{@request.protocol}#{@request.host}/videos/1.mp4"
       expect(File.exist?(test_location))
 
       remove_file(test_location)
     end
 
     it "increments filename when there is a duplicate" do
-      test_location = "public/test/samplevideo.mp4"
+      test_location = "public/test/1.mp4"
       File.open(test_location, File::CREAT|File::TRUNC|File::RDWR, 0644)
       request = {"0" => fixture_file_upload('samplevideo.mp4', 'video/mp4')}
 
       post :create, request, {}
       attrs = JSON.parse(response.body)["data"]["attributes"]
 
-      expect(attrs["url"]).to eq "#{@request.protocol}#{@request.host}/videos/samplevideo_1.mp4"
+      expect(attrs["url"]).to eq "#{@request.protocol}#{@request.host}/videos/2.mp4"
 
       remove_file(test_location)
-      remove_file("public/test/samplevideo_1.mp4")
+      remove_file("public/test/2.mp4")
     end
   end
 end
