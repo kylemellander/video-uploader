@@ -6,8 +6,12 @@
   </video>
 {{/if}}
 
+{{#if error}}
+  <div class="errors">{{error}}</div>
+{{/if}}
+
 {{#if loading}}
   {{progress}}%
 {{/if}}
 
-{{file-upload videoUrl=videoUrl progress=progress loading=loading}}
+{{file-upload videoUrl=videoUrl progress=progress loading=loading error=error}}

@@ -1,15 +1,16 @@
+/* global Blob */
 import { test } from 'qunit';
 import moduleForAcceptance from 'video-upload-frontend/tests/helpers/module-for-acceptance';
-import { createFile, uploadFileHelper, uploadFile } from '../helpers/file-input';
 
 moduleForAcceptance('Acceptance | index');
 
-test('visiting /', function(assert) {
+test('it rejects a file type that is not an mp4', function(assert) {
   visit('/');
+  const file = new Blob(['test'], {type: 'plain/txt'});
+  file.name = 'test.txt';
+  triggerEvent('.km-ember-file-upload', 'change', { target: { files: [file] } } );
 
   andThen(function() {
-    uploadFile();
-
-    assert.equal(currentURL(), '/');
+    assert.equal(find('div.errors').text(), 'That is not a valid video file. Please select an mp4 file.');
   });
 });

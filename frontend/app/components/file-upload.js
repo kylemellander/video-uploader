@@ -4,12 +4,10 @@ export default Ember.TextField.extend({
   classNames: ["km-ember-file-upload"],
   type: 'file',
   accept: '.mp4',
-  change(e) {
-    if (!e.target && !e.target.files) { return; }
-    const file = e.target.files[0];
-
-    if (!this.checkExtension(file) && !this.checkFileHeader(file)) {
-      return this.set('error', 'That file is not an mp4 file.');
+  fileSelected(e) {
+    let file = e.target.files[0];
+    if (!this.checkExtension(file) || !this.checkFileHeader(file)) {
+      return this.set('error', 'That is not a valid video file. Please select an mp4 file.');
     }
 
     const data = new FormData();
@@ -39,6 +37,14 @@ export default Ember.TextField.extend({
         this.set('videoUrl', resp.data.attributes.url);
       }
     });
+  },
+
+  didInsertElement() {
+    this.$().on('change', Ember.run.bind(this, 'fileSelected'));
+  },
+
+  willDestroyElement() {
+    this.$().off('change', Ember.run.bind(this, 'fileSelected'));
   },
 
   checkExtension(file) {
