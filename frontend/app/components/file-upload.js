@@ -11,8 +11,13 @@ export default Ember.TextField.extend({
       return this.set('error', 'That is not a valid video file. Please select an mp4 file.');
     }
 
+    if (file.size > 104857600) {
+      return this.set('error', 'That file is too large.  The maximum file size is 100MB.');
+    }
+
     const data = new FormData();
     data.append(0, file);
+    data.append("size", file.size);
     this.set('loading', true);
     this.set('error', null);
     this.makeRequest(data).then((resp) => {
