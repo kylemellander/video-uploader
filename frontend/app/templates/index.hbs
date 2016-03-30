@@ -1,7 +1,7 @@
 <h2 id="title">Video Uploader</h2>
 
 {{#if videoUrl}}
-  <video src={{videoUrl}} controls>
+  <video src={{videoUrl}} controls class="video-player">
     Your browser does not support the <code>video</code> element.
   </video>
 {{/if}}
@@ -11,7 +11,7 @@
 {{/if}}
 
 {{#if loading}}
-  {{progress}}%
+  <div class="loading">{{progress}}%</div>
 {{/if}}
 
 {{file-upload videoUrl=videoUrl progress=progress loading=loading error=error}}
