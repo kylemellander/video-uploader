@@ -27,7 +27,7 @@ export default Ember.TextField.extend({
     return Ember.$.ajax({
       url: this.get('url'),
       type: 'POST',
-      xhr: Ember.run(() => {
+      xhr: () => {
           const xhr = Ember.$.ajaxSettings.xhr();
           if (xhr.upload) {
             xhr.upload.onprogress = (progress) => {
@@ -37,7 +37,7 @@ export default Ember.TextField.extend({
           }
           // Add cancelling upload here
           return xhr;
-      }),
+      },
       data,
       cache: false,
       contentType: false,

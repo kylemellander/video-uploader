@@ -5,6 +5,7 @@ gem 'pg'
 gem 'responders', '2.1.2'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'thin', '1.6.4'
+gem 'mp4info', '~> 1.7', require: 'mp4info'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
