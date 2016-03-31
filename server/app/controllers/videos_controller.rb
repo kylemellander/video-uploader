@@ -1,16 +1,9 @@
 class VideosController < ApplicationController
 
   def create
-    upload = upload_params["file"]
-    size = upload_params["size"]
-    if !check_is_file(upload)
-      render json: json_error("No Attached File", "There was no file attached to upload."), status: 422
-    elsif check_size(size, upload)
-      render json: json_error("File Too Large", "Maximum file size is 100MB."), status: 422
-    elsif !check_mp4(upload.tempfile)
-      render json: json_error("Bad File", "That does not seem to be a valid mp4 file. Pick another video."), status: 422
-    else
-      url = write_file(upload)
+    video = Video.new(upload_params)
+    if video.valid?
+      url = write_file(video.file)
 
       render json: {
         data: {
@@ -19,6 +12,8 @@ class VideosController < ApplicationController
           }
         }
       }
+    else
+      render json: { "errors": video.errors }, status: 422
     end
   end
 
@@ -45,23 +40,6 @@ class VideosController < ApplicationController
     unique_name
   end
 
-  def check_is_file(upload)
-    upload && upload.class.to_s.split("::").last == "UploadedFile"
-  end
-
-  def check_size(size, upload)
-    size.to_i > 104857600 || upload.size() > 104857600
-  end
-
-  def check_mp4(file)
-    begin
-      MP4Info.new(file)
-      true
-    rescue
-      file.rewind
-      false
-    end
-  end
 
   def write_file(upload)
     filename = upload.original_filename
@@ -77,18 +55,6 @@ class VideosController < ApplicationController
 
   def upload_params
     params.permit("file", "size")
-  end
-
-  def json_error(title, detail)
-    {
-      "errors": [
-        {
-          "status": "422",
-          "title":  title,
-          "detail": detail
-        }
-      ]
-    }
   end
 
 end
