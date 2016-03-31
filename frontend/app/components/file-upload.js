@@ -18,7 +18,7 @@ export default Ember.TextField.extend({
     }
 
     const data = new FormData();
-    data.append(0, file);
+    data.append("file", file);
     data.append("size", file.size);
     this.set('loading', true);
     this.set('error', null);

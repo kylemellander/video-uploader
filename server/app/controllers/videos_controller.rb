@@ -1,7 +1,7 @@
 class VideosController < ApplicationController
 
   def create
-    upload = upload_params["0"]
+    upload = upload_params["file"]
     size = upload_params["size"]
     if !check_is_file(upload)
       render json: json_error("No Attached File", "There was no file attached to upload."), status: 422
@@ -76,7 +76,7 @@ class VideosController < ApplicationController
   end
 
   def upload_params
-    params.permit("0", "size")
+    params.permit("file", "size")
   end
 
   def json_error(title, detail)
