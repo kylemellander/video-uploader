@@ -1,4 +1,4 @@
-class UploadController < ApplicationController
+class VideosController < ApplicationController
 
   def create
     upload = upload_params["0"]

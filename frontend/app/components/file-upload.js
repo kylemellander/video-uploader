@@ -4,7 +4,7 @@ export default Ember.TextField.extend({
   classNames: ["km-ember-file-upload"],
   type: 'file',
   accept: '.mp4',
-  url: '/upload',
+  url: '/videos',
   fileSelected(e) {
     this.set('videoUrl', null);
 
