@@ -36,4 +36,35 @@ class Video
 
   attr_accessor :file, :size, :url
 
+  def increment_filename
+    count = 1
+    ext = File.extname(file.original_filename)
+    unique_name = "#{count}#{ext}"
+
+    while File.exist?("#{video_dir}#{count}#{ext}") do
+      count += 1
+      unique_name = "#{count}#{ext}"
+    end
+
+    unique_name
+  end
+
+  def write_file(request)
+    filename = increment_filename
+    port = request.port == 80 ? "" : ":#{request.port}"
+    File.open("#{Rails.root}/#{video_dir}#{filename}", 'wb') { |file|
+      self.file.rewind
+      file.write(self.file.read)
+    }
+
+    self.url = "#{request.protocol}#{request.host}#{port}/videos/#{filename}"
+  end
+
+  def video_dir
+    if Rails.env.test?
+      'public/test/'
+    else
+      'public/videos/'
+    end
+  end
 end
