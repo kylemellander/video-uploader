@@ -4,10 +4,10 @@ class UploadController < ApplicationController
     upload = upload_params["0"]
     size = upload_params["size"]
     if !check_is_file(upload)
-      render json: json_error("No File Uploaded", "There was no file attached to upload."), status: 422
+      render json: json_error("No Attached File", "There was no file attached to upload."), status: 422
     elsif check_size(size, upload)
       render json: json_error("File Too Large", "Maximum file size is 100MB."), status: 422
-    elsif !check_ext(upload.headers) || !check_mp4(upload.tempfile)
+    elsif !check_mp4(upload.tempfile)
       render json: json_error("Bad File", "That does not seem to be a valid mp4 file. Pick another video."), status: 422
     else
       url = write_file(upload)
@@ -51,10 +51,6 @@ class UploadController < ApplicationController
 
   def check_size(size, upload)
     size.to_i > 104857600 || upload.size() > 104857600
-  end
-
-  def check_ext(headers)
-    headers.include? "Content-Type: video/mp4"
   end
 
   def check_mp4(file)
