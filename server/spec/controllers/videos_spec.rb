@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'tempfile'
 
 describe VideosController do
   after(:each) do
@@ -17,12 +16,21 @@ describe VideosController do
     end
 
     it "returns an error when a non-video is attached" do
-      request = {"0" => fixture_file_upload('test.txt', 'plain/txt')}
+      request = {"file" => fixture_file_upload('test.txt', 'plain/txt'), "size" => 1000000}
       post :create, request, {}
       errors = JSON.parse(response.body)["errors"]["file"]
       expect(errors.count).to eq 1
       expect(response.status).to eq 422
-      expect(errors[0]).to eq "There was no file attached to upload."
+      expect(errors[0]).to eq "That does not seem to be a valid mp4 file. Pick another video."
+    end
+
+    it "returns an error when the size is too large" do
+      request = {"file" => fixture_file_upload('samplevideo.mp4', 'video/mp4'), "size" => 9999999999999}
+      post :create, request, {}
+      errors = JSON.parse(response.body)["errors"]["file"]
+      expect(errors.count).to eq 1
+      expect(response.status).to eq 422
+      expect(errors[0]).to eq "File Too Large.  Maximum file size is 100MB"
     end
 
     it "saves a video successfully" do

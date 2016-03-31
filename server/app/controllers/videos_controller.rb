@@ -3,7 +3,7 @@ class VideosController < ApplicationController
   def create
     video = Video.new(upload_params)
     if video.valid?
-      video.write_file(request)
+      video.write_file(request.protocol, request.host, request.port)
 
       render json: {
         data: {

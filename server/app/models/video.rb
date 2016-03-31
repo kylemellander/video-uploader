@@ -49,15 +49,15 @@ class Video
     unique_name
   end
 
-  def write_file(request)
+  def write_file(protocol, host, port)
     filename = increment_filename
-    port = request.port == 80 ? "" : ":#{request.port}"
+    port = port == 80 ? "" : ":#{port}"
     File.open("#{Rails.root}/#{video_dir}#{filename}", 'wb') { |file|
       self.file.rewind
       file.write(self.file.read)
     }
 
-    self.url = "#{request.protocol}#{request.host}#{port}/videos/#{filename}"
+    self.url = "#{protocol}#{host}#{port}/videos/#{filename}"
   end
 
   def video_dir
