@@ -6,6 +6,8 @@ export default Ember.TextField.extend({
   accept: '.mp4',
   url: '/upload',
   fileSelected(e) {
+    this.set('videoUrl', null);
+
     let file = e.target.files[0];
     if (!this.checkExtension(file) || !this.checkFileHeader(file)) {
       return this.set('error', 'That is not a valid video file. Please select an mp4 file.');
