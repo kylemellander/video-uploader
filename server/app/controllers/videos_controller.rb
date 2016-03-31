@@ -13,7 +13,7 @@ class VideosController < ApplicationController
         }
       }
     else
-      render json: { "errors": video.errors }, status: 422
+      render json: { errors: video.errors }, status: 422
     end
   end
 
