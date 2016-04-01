@@ -54,10 +54,30 @@
 
 .video-player {
   max-width: 100%;
-  max-height: 100vh;
+  max-height: 90vh;
 }
 
 h2.title {
   width: 100%;
   text-align: center;
+}
+
+.errors {
+  width: 50%;
+  min-width: 233px;
+  background: #FF4b4b;
+  color: #fff;
+  text-align: center;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+.loading {
+  width: 150px;
+  font-size: 1.3em;
+  color: #3a84bc;
+  border: 1px solid #3a84bc;
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px;
 }
