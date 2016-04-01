@@ -5,20 +5,14 @@ moduleForComponent('file-upload-input', 'Integration | Component | file upload i
   integration: true
 });
 
-test('it renders', function(assert) {
-  // Set any properties with this.set('myProperty', 'value');
-  // Handle any actions with this.on('myAction', function(val) { ... });
+test('it is a file input', function(assert) {
+  assert.expect(3);
 
   this.render(hbs`{{file-upload-input}}`);
 
-  assert.equal(this.$().text().trim(), '');
+  const input = this.$().children();
+  assert.ok(input.is('input'), 'is an input');
 
-  // Template block usage:
-  this.render(hbs`
-    {{#file-upload-input}}
-      template block text
-    {{/file-upload-input}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(input.attr('type'), 'file', 'input is a file input');
+  assert.equal(input.attr('accept'), '.mp4', 'only accepts mp4 files');
 });

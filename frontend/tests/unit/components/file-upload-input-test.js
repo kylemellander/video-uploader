@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('component:file-upload', 'Unit | file upload', {
+moduleFor('component:file-upload-input', 'Unit | file upload-input', {
   unit: true
 });
 

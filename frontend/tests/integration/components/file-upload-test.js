@@ -5,14 +5,13 @@ moduleForComponent('file-upload', 'Integration | Component | file upload', {
   integration: true
 });
 
-test('it is a file input', function(assert) {
-  assert.expect(3);
+test('it displays the file upload button', function(assert) {
+  assert.expect(2);
 
   this.render(hbs`{{file-upload}}`);
 
-  const input = this.$().children();
-  assert.ok(input.is('input'), 'is an input');
+  const comp = this.$().children();
+  assert.ok(comp.is('div'), 'is a div');
 
-  assert.equal(input.attr('type'), 'file', 'input is a file input');
-  assert.equal(input.attr('accept'), '.mp4', 'only accepts mp4 files');
+  assert.equal(this.$().text().trim(), 'Choose an mp4 file', 'it renders the button');
 });
