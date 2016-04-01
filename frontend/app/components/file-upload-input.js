@@ -49,8 +49,9 @@ export default TextField.extend({
       type: 'POST',
       xhr: () => {
         const xhr = $.ajaxSettings.xhr();
+
         xhr.upload.onprogress = (progress) => {
-          this.didProgress(progress);
+          run(this, this.didProgress, progress);
         };
         // Add cancelling upload here
         return xhr;
@@ -60,10 +61,14 @@ export default TextField.extend({
       contentType: false,
       processData: false,
       success: (resp) => {
-        run(null, resolve, this.uploadSuccess(resp));
+        run(() => {
+          resolve(this.uploadSuccess(resp));
+        });
       },
       error: (resp) => {
-        run(null, reject, this.handleError(resp));
+        run(() => {
+          reject(this.handleError(resp));
+        });
       }
     });
   },
