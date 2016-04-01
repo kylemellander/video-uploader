@@ -50,8 +50,7 @@ export default TextField.extend({
       xhr: () => {
         const xhr = $.ajaxSettings.xhr();
         xhr.upload.onprogress = (progress) => {
-          const percent = Math.round(progress.loaded / progress.total * 100);
-          this.set('progress', percent);
+          this.didProgress(progress);
         };
         // Add cancelling upload here
         return xhr;
@@ -67,6 +66,11 @@ export default TextField.extend({
         run(null, reject, this.handleError(resp));
       }
     });
+  },
+
+  didProgress(progress) {
+    const percent = Math.round(progress.loaded / progress.total * 100);
+    this.set('progress', percent);
   },
 
   didInsertElement() {
