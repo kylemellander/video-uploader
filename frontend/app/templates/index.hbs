@@ -1,9 +1,11 @@
-<h2 id="title">Video Uploader</h2>
+<h2 class="title">Video Uploader</h2>
 
 {{#if videoUrl}}
-  <video src={{videoUrl}} controls class="video-player">
-    Your browser does not support the <code>video</code> element.
-  </video>
+  <div class="video-container">
+    <video src={{videoUrl}} controls class="video-player">
+      Your browser does not support the <code>video</code> element.
+    </video>
+  </div>
 {{/if}}
 
 {{#if error}}

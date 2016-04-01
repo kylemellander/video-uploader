@@ -1,0 +1,63 @@
+.km-ember-file-upload {
+  width: 0px;
+  height: 0px;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.km-ember-file-upload + label {
+  color: #f1e5e6;
+  background-color: #3a84bc;
+  max-width: 80%;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.625rem 1.25rem;
+}
+
+.km-ember-file-upload:focus + label,
+.km-ember-file-upload.has-focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.km-ember-file-upload + label svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  margin-right: 0.25em;
+}
+
+.video-upload:focus + label,
+.video-upload.has-focus + label,
+.video-upload + label:hover {
+  background-color: #3a84bc;
+}
+
+.file-upload-container {
+  width: 233px;
+  margin: 0 auto;
+}
+
+.video-container {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 95%;
+}
+
+.video-player {
+  max-width: 100%;
+  max-height: 100vh;
+}
+
+h2.title {
+  width: 100%;
+  text-align: center;
+}
